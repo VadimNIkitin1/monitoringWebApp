@@ -1,13 +1,12 @@
-import './App.css';
+import { RouterProvider } from 'react-router-dom';
+import router from './router';
+import style from './App.module.scss';
 
 function App() {
   return (
-    <>
-      <h1>Monitoring Service</h1>
-      <p>CPU:</p>
-      <p>RAM:</p>
-      <p>Memory:</p>
-    </>
+    <div className={style.app}>
+      <RouterProvider router={router} />
+    </div>
   );
 }
 

@@ -1,0 +1,11 @@
+.centerText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  color: #65ff00;
+  font-weight: bold;
+  text-align: center;
+  white-space: pre;
+}
