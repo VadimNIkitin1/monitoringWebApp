@@ -1,2 +1,4 @@
-export const totalMemory = 8;
-export const usedMemory = 5;
+export const userData = {
+  totalValue: 8,
+  usedValue: 5,
+};
