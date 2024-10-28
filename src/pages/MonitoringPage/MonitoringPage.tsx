@@ -9,7 +9,7 @@ import { VMCard } from '@/components/VMCard/VMCard';
 
 export const MonitoringPage = () => {
   const { goToCharts } = useAppNavigate();
-  const { tg, initDataHash } = useTelegram();
+  const { tg, initDataHash, id } = useTelegram();
 
   useEffect(() => {
     tg.expand();
@@ -25,6 +25,7 @@ export const MonitoringPage = () => {
   // }, []);
 
   console.log(initDataHash);
+  console.log(id);
   return (
     <div className={style.page}>
       <h1 className={style.header}>BigMonitoring</h1>
