@@ -5,10 +5,11 @@ import { Button } from '@/components/ui/button';
 import style from './MonitoringPage.module.scss';
 import { useTelegram } from '@/hooks/useTelegram';
 import { useEffect } from 'react';
+import { VMCard } from '@/components/VMCard/VMCard';
 
 export const MonitoringPage = () => {
   const { goToCharts } = useAppNavigate();
-  const { tg } = useTelegram();
+  const { tg, initDataHash } = useTelegram();
 
   useEffect(() => {
     tg.expand();
@@ -23,7 +24,7 @@ export const MonitoringPage = () => {
   //   fetchData();
   // }, []);
 
-  // console.log(data);
+  console.log(initDataHash);
   return (
     <div className={style.page}>
       <h1 className={style.header}>BigMonitoring</h1>
@@ -41,6 +42,11 @@ export const MonitoringPage = () => {
             <p>Last Update:</p>
             <p>13:32:12</p>
           </div>
+        </div>
+        <div className={style.cardContainer}>
+          <VMCard name="VM1" status="up" />
+          <VMCard name="VM2" status="warn" />
+          <VMCard name="VM3" status="disconect" />
         </div>
       </div>
       <Button className={style.btn} onClick={() => goToCharts()}>

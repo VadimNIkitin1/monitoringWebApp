@@ -8,9 +8,13 @@ export const useTelegram = () => {
     tg.close();
   };
 
+  const initData = new URLSearchParams(tg?.initData);
+  const initDataHash = initData.get('hash');
+
   return {
     onClose,
     tg,
+    initDataHash,
     id: tg.initDataUnsafe?.user?.id,
     queryId: tg.initDataUnsafe?.query_id,
     username: tg.initDataUnsafe?.user?.username,
