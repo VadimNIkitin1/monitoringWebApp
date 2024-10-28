@@ -9,7 +9,7 @@ import { VMCard } from '@/components/VMCard/VMCard';
 
 export const MonitoringPage = () => {
   const { goToCharts } = useAppNavigate();
-  const { tg, initDataHash, id, queryId } = useTelegram();
+  const { tg, initDataHash, id, queryId, initData } = useTelegram();
 
   useEffect(() => {
     tg.expand();
@@ -25,6 +25,7 @@ export const MonitoringPage = () => {
   // }, []);
 
   console.log(initDataHash);
+  console.log(initData);
   console.log(id);
   console.log(queryId);
 

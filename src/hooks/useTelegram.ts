@@ -15,6 +15,7 @@ export const useTelegram = () => {
     onClose,
     tg,
     initDataHash,
+    initData,
     id: tg.initDataUnsafe?.user?.id,
     queryId: tg.initDataUnsafe?.query_id,
     username: tg.initDataUnsafe?.user?.username,
