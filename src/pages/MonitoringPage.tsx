@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { getPrometheusData } from '../api/api';
+// import { useState } from 'react';
+// import { getPrometheusData } from '../api/api';
 import { useAppNavigate } from '../hooks/useAppNavigate';
 import { Button } from '@/components/ui/button';
 
 export const MonitoringPage = () => {
   const { goToCharts } = useAppNavigate();
-  const [data, setData] = useState(null);
+  // const [data, setData] = useState(null);
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -14,7 +14,7 @@ export const MonitoringPage = () => {
   //   fetchData();
   // }, []);
 
-  console.log(data);
+  // console.log(data);
   return (
     <>
       <h1>Monitoring Service</h1>
