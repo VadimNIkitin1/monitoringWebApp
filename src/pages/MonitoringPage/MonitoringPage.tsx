@@ -3,9 +3,17 @@
 import { useAppNavigate } from '../../hooks/useAppNavigate';
 import { Button } from '@/components/ui/button';
 import style from './MonitoringPage.module.scss';
+import { useTelegram } from '@/hooks/useTelegram';
+import { useEffect } from 'react';
 
 export const MonitoringPage = () => {
   const { goToCharts } = useAppNavigate();
+  const { tg } = useTelegram();
+
+  useEffect(() => {
+    tg.expand();
+  }, []);
+
   // const [data, setData] = useState(null);
 
   // useEffect(() => {
