@@ -5,11 +5,12 @@ import style from './DoughnutChart.module.scss';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const DoughnutChart = ({ incomingData }: any) => {
+  const { usedValue, totalValue } = incomingData;
   const data = {
     label: '2020',
     datasets: [
       {
-        data: [incomingData.usedValue, incomingData.totalValue - incomingData.usedValue],
+        data: [usedValue, totalValue - usedValue],
         backgroundColor: ['green', 'yellow'],
         hoverBackgroundColor: ['green', 'yellow'],
         borderWidth: 0,
@@ -40,7 +41,7 @@ export const DoughnutChart = ({ incomingData }: any) => {
       <Doughnut data={data} options={options} />
       <div className={style.centerText}>
         CPU{'\n'}
-        {incomingData.usedValue}гб / {incomingData.totalValue}гб
+        {(usedValue / totalValue) * 100}%
       </div>
     </div>
   );

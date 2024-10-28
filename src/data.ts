@@ -1,4 +1,4 @@
 export const userData = {
   totalValue: 8,
-  usedValue: 5,
+  usedValue: 3,
 };

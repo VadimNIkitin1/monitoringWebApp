@@ -1,0 +1,43 @@
+// import { useState } from 'react';
+// import { getPrometheusData } from '../api/api';
+import { useAppNavigate } from '../../hooks/useAppNavigate';
+import { Button } from '@/components/ui/button';
+import style from './MonitoringPage.module.scss';
+
+export const MonitoringPage = () => {
+  const { goToCharts } = useAppNavigate();
+  // const [data, setData] = useState(null);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const result = await getPrometheusData();
+  //   };
+  //   fetchData();
+  // }, []);
+
+  // console.log(data);
+  return (
+    <div className={style.page}>
+      <h1 className={style.header}>BigMonitoring</h1>
+      <div className={style.content}>
+        <div className={style.infoTable}>
+          <div className={style.infoRow}>
+            <p>User:</p>
+            <p>Sekavovin</p>
+          </div>
+          <div className={style.infoRow}>
+            <p>Role:</p>
+            <p>Client/Company</p>
+          </div>
+          <div className={style.infoRow}>
+            <p>Last Update:</p>
+            <p>13:32:12</p>
+          </div>
+        </div>
+      </div>
+      <Button className={style.btn} onClick={() => goToCharts()}>
+        Мониторинг
+      </Button>
+    </div>
+  );
+};
