@@ -4,15 +4,29 @@ import { useAppNavigate } from '../../hooks/useAppNavigate';
 import { Button } from '@/components/ui/button';
 import style from './MonitoringPage.module.scss';
 import { useTelegram } from '@/hooks/useTelegram';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { VMCard } from '@/components/VMCard/VMCard';
 
 export const MonitoringPage = () => {
   const { goToCharts } = useAppNavigate();
   const { tg } = useTelegram();
+  const [currentTime, setCurrentTime] = useState('');
+  const [currentDate, setCurrentDate] = useState('');
 
   useEffect(() => {
     tg.expand();
+  }, []);
+
+  useEffect(() => {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString();
+    const dateString = now.toLocaleDateString('ru-RU', {
+      day: '2-digit',
+      month: '2-digit',
+      year: '2-digit',
+    });
+    setCurrentTime(timeString);
+    setCurrentDate(dateString);
   }, []);
 
   // const [data, setData] = useState(null);
@@ -39,7 +53,9 @@ export const MonitoringPage = () => {
           </div>
           <div className={style.infoRow}>
             <p>Last Update:</p>
-            <p>13:32:12</p>
+            <p>
+              {currentTime} / {currentDate}
+            </p>
           </div>
         </div>
         <div className={style.cardContainer}>
