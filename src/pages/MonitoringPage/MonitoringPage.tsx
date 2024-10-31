@@ -8,17 +8,14 @@ import { useEffect, useState } from 'react';
 import { VMCard } from '@/components/VMCard/VMCard';
 
 export const MonitoringPage = () => {
-  const { goToDoughnutCharts, goBack } = useAppNavigate();
+  const { goToDoughnutCharts } = useAppNavigate();
   const { tg } = useTelegram();
   const [currentTime, setCurrentTime] = useState('');
   const [currentDate, setCurrentDate] = useState('');
 
   useEffect(() => {
     tg.expand();
-    tg.BackButton.show().onClick(goBack);
-    return () => {
-      tg.BackButton.offClick(goBack);
-    };
+    tg.BackButton.hide();
   }, []);
 
   useEffect(() => {
