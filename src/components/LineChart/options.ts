@@ -1,26 +1,24 @@
 import { IChartsOptions } from '@/types';
 
-export const chartsOptionsForCPU: IChartsOptions = {
-  indicator: 'CPU',
-  backgroundColor: ['#025500', '#80ec81'],
-  hoverBackgroundColor: ['#025500', '#80ec81'],
-  borderWidth: 0,
-  options: {
-    cutout: '70%',
-    plugins: {
-      legend: {
+export const chartsOptionsForCPU = {
+  scales: {
+    y: {
+      beginAtZero: true,
+      max: 100,
+      ticks: {
+        stepSize: 10, // Шаг делений - 10%
+      },
+      title: {
         display: true,
-        position: 'bottom' as const,
-      },
-      tooltip: {
-        enabled: false,
+        text: 'CPU Load (%)',
       },
     },
-    animation: {
-      animateRotate: true,
+    x: {
+      title: {
+        display: true,
+        text: 'Time',
+      },
     },
-    responsive: true,
-    maintainAspectRatio: false,
   },
 };
 

@@ -3,7 +3,7 @@ export interface IChartsData {
   usedValue: number;
 }
 
-export interface IChartsSettings {
+export interface IChartsOptions {
   indicator: string;
   backgroundColor: string[];
   hoverBackgroundColor: string[];

@@ -1,19 +1,19 @@
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import style from './DoughnutChart.module.scss';
-import { IChartsData, IChartsSettings } from '@/types';
+import { IChartsData, IChartsOptions } from '@/types';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const DoughnutChart = ({
   chartsData,
-  chartsSettings,
+  chartsOptions,
 }: {
   chartsData: IChartsData;
-  chartsSettings: IChartsSettings;
+  chartsOptions: IChartsOptions;
 }) => {
   const { usedValue, totalValue } = chartsData;
-  const { indicator, backgroundColor, hoverBackgroundColor, borderWidth, options } = chartsSettings;
+  const { indicator, backgroundColor, hoverBackgroundColor, borderWidth, options } = chartsOptions;
   const data = {
     datasets: [
       {

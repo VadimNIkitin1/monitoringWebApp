@@ -1,6 +1,4 @@
-import { FC } from 'react';
-
-const NotFoundPage: FC = () => {
+export const NotFoundPage = () => {
   return <div>NotFoundPage</div>;
 };
 

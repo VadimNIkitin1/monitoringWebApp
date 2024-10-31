@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { VMCard } from '@/components/VMCard/VMCard';
 
 export const MonitoringPage = () => {
-  const { goToCharts } = useAppNavigate();
+  const { goToDoughnutCharts, goToLineChart } = useAppNavigate();
   const { tg } = useTelegram();
   const [currentTime, setCurrentTime] = useState('');
   const [currentDate, setCurrentDate] = useState('');
@@ -64,8 +64,11 @@ export const MonitoringPage = () => {
           <VMCard name="VM3" status="disconect" />
         </div>
       </div>
-      <Button className={style.btn} onClick={() => goToCharts()}>
-        Мониторинг
+      <Button className={style.btn} onClick={() => goToDoughnutCharts()}>
+        DoughnutCharts
+      </Button>
+      <Button className={style.btn} onClick={() => goToLineChart()}>
+        LineChart
       </Button>
     </div>
   );

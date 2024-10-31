@@ -1,34 +1,34 @@
 import { Button } from '@chakra-ui/react';
 import { DoughnutChart } from '../../components/DoughnutChart/DoughnutChart';
 import { userData } from '../../data';
-import style from './ChartsPage.module.scss';
+import style from './DoughnutChartsPage.module.scss';
 import { useAppNavigate } from '@/hooks/useAppNavigate';
 import {
-  chartsSettingsForCPU,
-  chartsSettingsForRAM,
-  chartsSettingsForDISK,
-  chartsSettingsForNET,
+  chartsOptionsForCPU,
+  chartsOptionsForRAM,
+  chartsOptionsForDISK,
+  chartsOptionsForNET,
 } from '@/components/DoughnutChart/options';
 
-export const ChartsPage = () => {
+export const DoughnutChartsPage = () => {
   const { userDataCPU, userDataDISK, userDataNET, userDataRAM } = userData;
   const { goBack } = useAppNavigate();
   return (
     <div className={style.page}>
       <div>
-        <DoughnutChart chartsData={userDataCPU} chartsSettings={chartsSettingsForCPU} />
+        <DoughnutChart chartsData={userDataCPU} chartsOptions={chartsOptionsForCPU} />
         <Button className={style.btn}>Подробнее</Button>
       </div>
       <div>
-        <DoughnutChart chartsData={userDataRAM} chartsSettings={chartsSettingsForRAM} />
+        <DoughnutChart chartsData={userDataRAM} chartsOptions={chartsOptionsForRAM} />
         <Button className={style.btn}>Подробнее</Button>
       </div>
       <div>
-        <DoughnutChart chartsData={userDataDISK} chartsSettings={chartsSettingsForDISK} />
+        <DoughnutChart chartsData={userDataDISK} chartsOptions={chartsOptionsForDISK} />
         <Button className={style.btn}>Подробнее</Button>
       </div>
       <div>
-        <DoughnutChart chartsData={userDataNET} chartsSettings={chartsSettingsForNET} />
+        <DoughnutChart chartsData={userDataNET} chartsOptions={chartsOptionsForNET} />
         <Button className={style.btn}>Подробнее</Button>
       </div>
       <Button className={style.btn} onClick={() => goBack()}>

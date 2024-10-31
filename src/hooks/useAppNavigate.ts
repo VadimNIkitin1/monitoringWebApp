@@ -3,8 +3,12 @@ import { useNavigate } from 'react-router-dom';
 export const useAppNavigate = () => {
   const navigate = useNavigate();
 
-  const goToCharts = () => {
-    navigate('/charts');
+  const goToDoughnutCharts = () => {
+    navigate('/doughnutcharts');
+  };
+
+  const goToLineChart = () => {
+    navigate('/linecharts');
   };
 
   const goBack = () => {
@@ -12,7 +16,8 @@ export const useAppNavigate = () => {
   };
 
   return {
-    goToCharts,
+    goToDoughnutCharts,
+    goToLineChart,
     goBack,
   };
 };
