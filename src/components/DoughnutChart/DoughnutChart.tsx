@@ -17,7 +17,7 @@ export const DoughnutChart = ({
   const data = {
     datasets: [
       {
-        data: [usedValue, totalValue - usedValue],
+        data: [usedValue.at(-1), totalValue - usedValue.at(-1)!],
         backgroundColor,
         hoverBackgroundColor,
         borderWidth,
@@ -31,7 +31,7 @@ export const DoughnutChart = ({
       <div className={style.centerText}>
         {indicator}
         {'\n'}
-        {((usedValue / totalValue) * 100).toFixed(2)}%
+        {((usedValue.at(-1)! / totalValue) * 100).toFixed(2)}%
       </div>
     </div>
   );

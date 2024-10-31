@@ -1,6 +1,6 @@
 export interface IChartsData {
   totalValue: number;
-  usedValue: number;
+  usedValue: number[];
 }
 
 export interface IChartsOptions {
