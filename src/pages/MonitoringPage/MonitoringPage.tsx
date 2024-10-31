@@ -1,14 +1,11 @@
 // import { useState } from 'react';
 // import { getPrometheusData } from '../api/api';
-import { useAppNavigate } from '../../hooks/useAppNavigate';
-import { Button } from '@/components/ui/button';
 import style from './MonitoringPage.module.scss';
 import { useTelegram } from '@/hooks/useTelegram';
 import { useEffect, useState } from 'react';
 import { VMCard } from '@/components/VMCard/VMCard';
 
 export const MonitoringPage = () => {
-  const { goToDoughnutCharts } = useAppNavigate();
   const { tg } = useTelegram();
   const [currentTime, setCurrentTime] = useState('');
   const [currentDate, setCurrentDate] = useState('');
@@ -65,9 +62,6 @@ export const MonitoringPage = () => {
           <VMCard name="VM3" status="disconect" />
         </div>
       </div>
-      <Button className={style.btn} onClick={() => goToDoughnutCharts()}>
-        DoughnutCharts
-      </Button>
     </div>
   );
 };
