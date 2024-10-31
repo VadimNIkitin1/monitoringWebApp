@@ -7,12 +7,12 @@ export const useAppNavigate = () => {
     navigate('/doughnutcharts');
   };
 
-  const goToLineChart = () => {
-    navigate('/linecharts');
+  const goToLineChart = (type: string) => {
+    navigate(`${type}/linecharts/`);
   };
 
   const goBack = () => {
-    navigate('/');
+    navigate(-1);
   };
 
   return {

@@ -1,14 +1,25 @@
 import { LineChart } from '@/components/LineChart/LineChart';
-import { userData } from '@/data';
-import { chartsOptionsForCPU } from '@/components/LineChart/options';
 import style from './LineChartPage.module.scss';
+import { Button } from '@/components/ui/button';
+import { useAppNavigate } from '@/hooks/useAppNavigate';
+import { useEffect } from 'react';
+import { useTelegram } from '@/hooks/useTelegram';
 
 export const LineChartPage = () => {
-  const { userDataCPU } = userData;
+  const { goBack } = useAppNavigate();
+  const { tg } = useTelegram();
+
+  useEffect(() => {
+    tg.BackButton.show().onClick(goBack);
+    return () => {
+      tg.BackButton.offClick(goBack);
+    };
+  }, []);
 
   return (
     <div className={style.page}>
-      <LineChart chartsData={userDataCPU} chartsOptions={chartsOptionsForCPU} />
+      <LineChart />
+      <Button onClick={() => goBack()}>Назад</Button>
     </div>
   );
 };

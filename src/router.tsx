@@ -15,7 +15,12 @@ const router = createBrowserRouter(
         element={<DoughnutChartsPage />}
         errorElement={<ErrorPage />}
       />
-      <Route index path="/linecharts" element={<LineChartPage />} errorElement={<ErrorPage />} />
+      <Route
+        index
+        path="/doughnutcharts/:typelinecharts/linecharts"
+        element={<LineChartPage />}
+        errorElement={<ErrorPage />}
+      />
       <Route path="*" element={<NotFoundPage />} />
     </>
   )

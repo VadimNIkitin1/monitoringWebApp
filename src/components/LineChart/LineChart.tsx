@@ -6,40 +6,81 @@ import {
   PointElement,
   LineElement,
   LinearScale,
+  ChartData,
+  ChartOptions,
+  TimeScale,
 } from 'chart.js';
 import style from './LineChart.module.scss';
-import { IChartsData } from '@/types';
-import { ILineChartOptions } from './options';
+import { useParams } from 'react-router-dom';
+import { TypeLineChart } from '@/constans';
+import { userData } from '@/data';
+import { generateHourlyLabels } from '@/utils/generateHourlyLabels';
 
-ChartJS.register(ArcElement, CategoryScale, PointElement, LineElement, LinearScale);
+ChartJS.register(ArcElement, CategoryScale, PointElement, LineElement, LinearScale, TimeScale);
 
-export const LineChart = ({
-  chartsData,
-  chartsOptions,
-}: {
-  chartsData: IChartsData;
-  chartsOptions: ILineChartOptions;
-}) => {
-  const { usedValue } = chartsData;
+const dataMapping = {
+  [TypeLineChart.CPU]: userData.userDataCPU,
+  [TypeLineChart.RAM]: userData.userDataRAM,
+  [TypeLineChart.DISK]: userData.userDataDISK,
+  [TypeLineChart.NET]: userData.userDataNET,
+};
 
-  const { label, labels, scales } = chartsOptions;
+export const LineChart = () => {
+  const { typelinecharts } = useParams();
 
-  const data = {
-    labels,
-    datasets: [
-      {
-        label,
-        data: [10, 10, 10, 10, 30, 10, 10, 10, 80, 10, usedValue],
-        fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1,
+  const howUsedData = (type: string | undefined): ChartData<'line', number[], string> => {
+    const labels = generateHourlyLabels();
+    const selectedData = type ? dataMapping[type as TypeLineChart]?.usedValue : [];
+
+    return {
+      labels,
+      datasets: [
+        {
+          label: type,
+          data: selectedData,
+          fill: false,
+          borderColor: 'rgb(75, 192, 192)',
+          tension: 0.1,
+        },
+      ],
+    };
+  };
+
+  const howUseOptions = (type: string | undefined): ChartOptions<'line'> => {
+    const max = type ? dataMapping[type as TypeLineChart]?.totalValue : 100;
+
+    return {
+      scales: {
+        y: {
+          beginAtZero: true,
+          max,
+          ticks: {
+            stepSize: max < 10 ? 1 : 10,
+          },
+          grid: {
+            color: 'rgba(200, 200, 200, 0.3)',
+          },
+          title: {
+            display: true,
+            text: 'Value',
+          },
+        },
+        x: {
+          title: {
+            display: true,
+            text: 'Time',
+          },
+          grid: {
+            color: 'rgba(200, 200, 200, 0.3)',
+          },
+        },
       },
-    ],
+    };
   };
 
   return (
     <div className={style.container}>
-      <Line data={data} options={scales} />
+      <Line data={howUsedData(typelinecharts)} options={howUseOptions(typelinecharts)} />
     </div>
   );
 };

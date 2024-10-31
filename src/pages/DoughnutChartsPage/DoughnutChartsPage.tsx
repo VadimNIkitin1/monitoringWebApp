@@ -1,4 +1,3 @@
-import { Button } from '@chakra-ui/react';
 import { DoughnutChart } from '../../components/DoughnutChart/DoughnutChart';
 import { userData } from '../../data';
 import style from './DoughnutChartsPage.module.scss';
@@ -9,31 +8,36 @@ import {
   chartsOptionsForDISK,
   chartsOptionsForNET,
 } from '@/components/DoughnutChart/options';
+import { TypeLineChart } from '@/constans';
+import { useTelegram } from '@/hooks/useTelegram';
+import { useEffect } from 'react';
 
 export const DoughnutChartsPage = () => {
   const { userDataCPU, userDataDISK, userDataNET, userDataRAM } = userData;
-  const { goBack } = useAppNavigate();
+  const { goBack, goToLineChart } = useAppNavigate();
+  const { tg } = useTelegram();
+
+  useEffect(() => {
+    tg.BackButton.show().onClick(goBack);
+    return () => {
+      tg.BackButton.offClick(goBack);
+    };
+  }, []);
+
   return (
     <div className={style.page}>
-      <div>
+      <div onClick={() => goToLineChart(TypeLineChart.CPU)}>
         <DoughnutChart chartsData={userDataCPU} chartsOptions={chartsOptionsForCPU} />
-        <Button className={style.btn}>Подробнее</Button>
       </div>
-      <div>
+      <div onClick={() => goToLineChart(TypeLineChart.RAM)}>
         <DoughnutChart chartsData={userDataRAM} chartsOptions={chartsOptionsForRAM} />
-        <Button className={style.btn}>Подробнее</Button>
       </div>
-      <div>
+      <div onClick={() => goToLineChart(TypeLineChart.DISK)}>
         <DoughnutChart chartsData={userDataDISK} chartsOptions={chartsOptionsForDISK} />
-        <Button className={style.btn}>Подробнее</Button>
       </div>
-      <div>
+      <div onClick={() => goToLineChart(TypeLineChart.NET)}>
         <DoughnutChart chartsData={userDataNET} chartsOptions={chartsOptionsForNET} />
-        <Button className={style.btn}>Подробнее</Button>
       </div>
-      <Button className={style.btn} onClick={() => goBack()}>
-        Назад
-      </Button>
     </div>
   );
 };
