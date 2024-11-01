@@ -4,16 +4,31 @@ import style from './MonitoringPage.module.scss';
 import { useTelegram } from '@/hooks/useTelegram';
 import { useEffect, useState } from 'react';
 import { VMCard } from '@/components/VMCard/VMCard';
+import { getServerList } from '@/api/metrics';
+import { IServer } from '@/types';
 
 export const MonitoringPage = () => {
-  const { tg } = useTelegram();
+  const { username } = useTelegram();
   const [currentTime, setCurrentTime] = useState('');
   const [currentDate, setCurrentDate] = useState('');
+  const [serverList, setServerList] = useState<IServer[]>([]);
 
   useEffect(() => {
-    tg.expand();
-    tg.BackButton.hide();
+    const fetchData = async () => {
+      try {
+        const res = await getServerList();
+        setServerList(res);
+      } catch (error) {
+        console.error('Error fetching server list:', error);
+      }
+    };
+    fetchData();
   }, []);
+
+  // useEffect(() => {
+  //   tg.expand();
+  //   tg.BackButton.hide();
+  // }, []);
 
   useEffect(() => {
     const now = new Date();
@@ -43,7 +58,7 @@ export const MonitoringPage = () => {
         <div className={style.infoTable}>
           <div className={style.infoRow}>
             <p>User:</p>
-            <p>Sekavovin</p>
+            <p>{username ? username : 'not tg'}</p>
           </div>
           <div className={style.infoRow}>
             <p>Role:</p>
@@ -57,9 +72,9 @@ export const MonitoringPage = () => {
           </div>
         </div>
         <div className={style.cardContainer}>
-          <VMCard name="VM1" status="up" />
-          <VMCard name="VM2" status="warn" />
-          <VMCard name="VM3" status="disconect" />
+          {serverList.map((server: IServer) => (
+            <VMCard key={server.id} name={server.name} status={server.status} />
+          ))}
         </div>
       </div>
     </div>

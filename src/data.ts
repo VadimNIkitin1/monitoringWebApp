@@ -18,3 +18,23 @@ export const userData = {
     usedValue: [20, 20, 20, 20, 20, 20, 44, 11, 11, 33, 33],
   },
 };
+
+// Формат данных для первой страницы
+
+interface FirstPageData {
+  user: string;
+  role: string;
+  machineList: [
+    {
+      id: number;
+      name: string;
+      status: string;
+    },
+  ];
+}
+
+// Формат данных для кольцевых графиков
+interface DoughnutData {}
+
+// Формат данных для линейных графиков
+interface LineData {}

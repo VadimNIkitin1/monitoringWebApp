@@ -10,3 +10,9 @@ export interface IChartsOptions {
   borderWidth: number;
   options: {};
 }
+
+export interface IServer {
+  id: number;
+  name: string;
+  status: string;
+}
