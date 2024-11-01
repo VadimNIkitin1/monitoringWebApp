@@ -1,0 +1,25 @@
+.skeleton {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  &::before {
+    content: '';
+    position: absolute;
+    left: -150px;
+    top: 0;
+    height: 100%;
+    width: 150px;
+    background: linear-gradient(to right, transparent 0%, #232323 50%, transparent 100%);
+    animation: load 0.9s infinite linear;
+  }
+}
+
+@keyframes load {
+  from {
+    left: -150px;
+  }
+  to {
+    left: 100%;
+  }
+}

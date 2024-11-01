@@ -1,25 +1,37 @@
 import { useEffect, useState } from 'react';
 
 import { useTelegram } from '@/hooks';
-import { VMCard } from '@/components';
+import { VMCard, Skeleton } from '@/components';
 import { getServerList } from '@/api';
 import { IServer } from './types';
 
 import style from './MonitoringPage.module.scss';
+
+import { Alert } from '@/components/ui/alert';
 
 export const MonitoringPage = () => {
   const { tg, username } = useTelegram();
   const [currentTime, setCurrentTime] = useState('');
   const [currentDate, setCurrentDate] = useState('');
   const [serverList, setServerList] = useState<IServer[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
+      setError(null);
       try {
         const res = await getServerList();
-        setServerList(res);
-      } catch (error) {
-        console.error('Error fetching server list:', error);
+        if (res && res.length) {
+          setServerList(res);
+        } else {
+          setServerList([]);
+        }
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
@@ -42,15 +54,6 @@ export const MonitoringPage = () => {
     setCurrentDate(dateString);
   }, []);
 
-  // const [data, setData] = useState(null);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const result = await getPrometheusData();
-  //   };
-  //   fetchData();
-  // }, []);
-
   return (
     <div className={style.page}>
       <h1 className={style.header}>BigMonitoring</h1>
@@ -58,19 +61,42 @@ export const MonitoringPage = () => {
         <div className={style.infoTable}>
           <div className={style.infoRow}>
             <p>User:</p>
-            <p>{username ? username : 'not tg'}</p>
+            <div>
+              {loading ? (
+                <Skeleton className={style.small} />
+              ) : (
+                <p>{username ? username : 'not tg'}</p>
+              )}
+            </div>
           </div>
           <div className={style.infoRow}>
             <p>Role:</p>
-            <p>Client/Company</p>
+            <div>{loading ? <Skeleton className={style.small} /> : <p>Client/Company</p>}</div>
           </div>
           <div className={style.infoRow}>
             <p>Last Update:</p>
-            <p>
-              {currentTime} / {currentDate}
-            </p>
+            <div>
+              {loading ? (
+                <Skeleton className={style.small} />
+              ) : (
+                <p>
+                  {currentTime} / {currentDate}
+                </p>
+              )}
+            </div>
           </div>
         </div>
+        {error && <Alert status="error">{error}</Alert>}
+        {/* {!serverList?.length && !loading && !error && (
+          <Alert status="info">Нет доступных серверов.</Alert>
+        )} */}
+        {loading && (
+          <div className={style.skeletonContainer}>
+            <Skeleton className={style.middle} />
+            <Skeleton className={style.middle} />
+            <Skeleton className={style.middle} />
+          </div>
+        )}
         <div className={style.cardContainer}>
           {serverList.map((server: IServer) => (
             <VMCard key={server.id} id={server.id} name={server.name} status={server.status} />
