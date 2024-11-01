@@ -1,13 +1,15 @@
+import { useAppNavigate } from '@/hooks';
+
 import clsx from 'clsx';
 import style from './VMCard.module.scss';
-import { useAppNavigate } from '@/hooks/useAppNavigate';
 
 interface IVMCardProps {
+  id: number;
   name: string;
   status: string;
 }
 
-export const VMCard = ({ name, status }: IVMCardProps) => {
+export const VMCard = ({ name, status, id }: IVMCardProps) => {
   const { goToDoughnutCharts } = useAppNavigate();
   return (
     <div
@@ -17,7 +19,7 @@ export const VMCard = ({ name, status }: IVMCardProps) => {
         status === 'ERROR' && style.disconect,
         status === 'WARN' && style.warn
       )}
-      onClick={() => goToDoughnutCharts()}
+      onClick={() => goToDoughnutCharts(id)}
     >
       <p className={style.name}>{name}</p>
       <p className={style.status}>{status}</p>

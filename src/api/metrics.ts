@@ -10,3 +10,12 @@ export async function getServerList() {
     console.error('Error fetching data from Backend:', error);
   }
 }
+
+export async function getServerMetrics(id: string | undefined) {
+  try {
+    const res = await axios.get(`/server_metrics/${id}`);
+    return res.data;
+  } catch (error) {
+    console.error('Error fetching data from Backend:', error);
+  }
+}

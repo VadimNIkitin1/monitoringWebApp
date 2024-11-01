@@ -1,14 +1,14 @@
-// import { useState } from 'react';
-// import { getPrometheusData } from '../api/api';
-import style from './MonitoringPage.module.scss';
-import { useTelegram } from '@/hooks/useTelegram';
 import { useEffect, useState } from 'react';
-import { VMCard } from '@/components/VMCard/VMCard';
-import { getServerList } from '@/api/metrics';
-import { IServer } from '@/types';
+
+import { useTelegram } from '@/hooks';
+import { VMCard } from '@/components';
+import { getServerList } from '@/api';
+import { IServer } from './types';
+
+import style from './MonitoringPage.module.scss';
 
 export const MonitoringPage = () => {
-  const { username } = useTelegram();
+  const { tg, username } = useTelegram();
   const [currentTime, setCurrentTime] = useState('');
   const [currentDate, setCurrentDate] = useState('');
   const [serverList, setServerList] = useState<IServer[]>([]);
@@ -25,10 +25,10 @@ export const MonitoringPage = () => {
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   tg.expand();
-  //   tg.BackButton.hide();
-  // }, []);
+  useEffect(() => {
+    tg.expand();
+    tg.BackButton.hide();
+  }, []);
 
   useEffect(() => {
     const now = new Date();
@@ -73,7 +73,7 @@ export const MonitoringPage = () => {
         </div>
         <div className={style.cardContainer}>
           {serverList.map((server: IServer) => (
-            <VMCard key={server.id} name={server.name} status={server.status} />
+            <VMCard key={server.id} id={server.id} name={server.name} status={server.status} />
           ))}
         </div>
       </div>

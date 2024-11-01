@@ -1,4 +1,5 @@
 import { Line } from 'react-chartjs-2';
+import { useParams } from 'react-router-dom';
 import {
   Chart as ChartJS,
   ArcElement,
@@ -10,11 +11,12 @@ import {
   ChartOptions,
   TimeScale,
 } from 'chart.js';
-import style from './LineChart.module.scss';
-import { useParams } from 'react-router-dom';
+
 import { TypeLineChart } from '@/constans';
 import { userData } from '@/data';
-import { generateHourlyLabels } from '@/utils/generateHourlyLabels';
+import { generateHourlyLabels } from '@/utils';
+
+import style from './LineChart.module.scss';
 
 ChartJS.register(ArcElement, CategoryScale, PointElement, LineElement, LinearScale, TimeScale);
 

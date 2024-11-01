@@ -1,8 +1,9 @@
-import { LineChart } from '@/components/LineChart/LineChart';
-import style from './LineChartPage.module.scss';
-import { useAppNavigate } from '@/hooks/useAppNavigate';
 import { useEffect } from 'react';
-import { useTelegram } from '@/hooks/useTelegram';
+
+import { LineChart } from '@/components';
+import { useAppNavigate, useTelegram } from '@/hooks';
+
+import style from './LineChartPage.module.scss';
 
 export const LineChartPage = () => {
   const { goBack } = useAppNavigate();

@@ -1,9 +1,12 @@
 import { createBrowserRouter, Route, createRoutesFromElements } from 'react-router-dom';
-import { DoughnutChartsPage } from './pages/DoughnutChartsPage';
-import { LineChartPage } from './pages/LineChartPage';
-import { NotFoundPage } from './pages/NotFoundPage';
-import { MonitoringPage } from './pages/MonitoringPage/MonitoringPage';
-import { ErrorPage } from './pages/ErrorPage/ErrorPage';
+
+import {
+  DoughnutChartsPage,
+  LineChartPage,
+  NotFoundPage,
+  MonitoringPage,
+  ErrorPage,
+} from './pages';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -11,13 +14,13 @@ const router = createBrowserRouter(
       <Route index path="/" element={<MonitoringPage />} errorElement={<ErrorPage />} />
       <Route
         index
-        path="/doughnutcharts"
+        path="/:server_id/doughnutcharts"
         element={<DoughnutChartsPage />}
         errorElement={<ErrorPage />}
       />
       <Route
         index
-        path="/doughnutcharts/:typelinecharts/linecharts"
+        path="/:server_id/doughnutcharts/:typelinecharts/linecharts"
         element={<LineChartPage />}
         errorElement={<ErrorPage />}
       />

@@ -1,19 +1,17 @@
-import { DoughnutChart } from '../../components/DoughnutChart/DoughnutChart';
-import { userData } from '../../data';
-import style from './DoughnutChartsPage.module.scss';
-import { useAppNavigate } from '@/hooks/useAppNavigate';
-import {
-  chartsOptionsForCPU,
-  chartsOptionsForRAM,
-  chartsOptionsForDISK,
-  chartsOptionsForNET,
-} from '@/components/DoughnutChart/options';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
+import { DoughnutChart } from '@/components';
+import { useAppNavigate, useTelegram } from '@/hooks';
 import { TypeLineChart } from '@/constans';
-import { useTelegram } from '@/hooks/useTelegram';
-import { useEffect } from 'react';
+import { getServerMetrics } from '@/api';
+import { IDataMetrics } from './types';
+
+import style from './DoughnutChartsPage.module.scss';
 
 export const DoughnutChartsPage = () => {
-  const { userDataCPU, userDataDISK, userDataNET, userDataRAM } = userData;
+  const { server_id } = useParams();
+  const [dataMetrics, setDataMetrics] = useState<IDataMetrics | null>(null);
   const { goBack, goToLineChart } = useAppNavigate();
   const { tg } = useTelegram();
 
@@ -24,19 +22,47 @@ export const DoughnutChartsPage = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getServerMetrics(server_id);
+        setDataMetrics(res);
+      } catch (error) {
+        console.error('Error fetching server list:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className={style.page}>
       <div onClick={() => goToLineChart(TypeLineChart.CPU)}>
-        <DoughnutChart chartsData={userDataCPU} chartsOptions={chartsOptionsForCPU} />
+        {dataMetrics && dataMetrics.cpu ? (
+          <DoughnutChart chartsData={dataMetrics.cpu} />
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
       <div onClick={() => goToLineChart(TypeLineChart.RAM)}>
-        <DoughnutChart chartsData={userDataRAM} chartsOptions={chartsOptionsForRAM} />
+        {dataMetrics && dataMetrics.ram ? (
+          <DoughnutChart chartsData={dataMetrics.ram} />
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
       <div onClick={() => goToLineChart(TypeLineChart.DISK)}>
-        <DoughnutChart chartsData={userDataDISK} chartsOptions={chartsOptionsForDISK} />
+        {dataMetrics && dataMetrics.disk ? (
+          <DoughnutChart chartsData={dataMetrics.disk} />
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
       <div onClick={() => goToLineChart(TypeLineChart.NET)}>
-        <DoughnutChart chartsData={userDataNET} chartsOptions={chartsOptionsForNET} />
+        {dataMetrics && dataMetrics.net ? (
+          <DoughnutChart chartsData={dataMetrics.net} />
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
     </div>
   );
