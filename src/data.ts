@@ -19,22 +19,22 @@ export const userData = {
   },
 };
 
-// Формат данных для первой страницы
+// // Формат данных для первой страницы
 
-interface FirstPageData {
-  user: string;
-  role: string;
-  machineList: [
-    {
-      id: number;
-      name: string;
-      status: string;
-    },
-  ];
-}
+// interface FirstPageData {
+//   user: string;
+//   role: string;
+//   machineList: [
+//     {
+//       id: number;
+//       name: string;
+//       status: string;
+//     },
+//   ];
+// }
 
-// Формат данных для кольцевых графиков
-interface DoughnutData {}
+// // Формат данных для кольцевых графиков
+// interface DoughnutData {}
 
-// Формат данных для линейных графиков
-interface LineData {}
+// // Формат данных для линейных графиков
+// interface LineData {}
