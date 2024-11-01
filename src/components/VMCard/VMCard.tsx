@@ -15,8 +15,8 @@ export const VMCard = ({ name, status, id }: IVMCardProps) => {
     <div
       className={clsx(
         style.card,
-        status === 'OK' && style.up,
-        status === 'ERROR' && style.disconect,
+        status === 'OK' && style.ok,
+        status === 'ERROR' && style.error,
         status === 'WARN' && style.warn
       )}
       onClick={() => goToDoughnutCharts(id)}
