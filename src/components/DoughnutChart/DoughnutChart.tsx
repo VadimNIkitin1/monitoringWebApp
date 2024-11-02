@@ -10,7 +10,6 @@ import style from './DoughnutChart.module.scss';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const DoughnutChart = ({ chartsData }: { chartsData: IDoughnutData }) => {
-  console.log(chartsData);
   const { total, values, type } = chartsData;
 
   const data = {

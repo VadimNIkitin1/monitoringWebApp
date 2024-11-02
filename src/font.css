@@ -1,8 +1,8 @@
 @font-face {
   font-family: 'Urbanist';
   src:
-    url('./font/Urbanist-Light.ttf') format('woff2'),
-    url('./font/Urbanist-Light.ttf') format('woff');
+    url('/src/font/Urbanist-Light.ttf') format('truetype'),
+    url('/src/font/Urbanist-Light.ttf') format('truetype');
   font-weight: 300; /* Light */
   font-style: normal;
   font-display: swap;
@@ -11,8 +11,8 @@
 @font-face {
   font-family: 'Urbanist';
   src:
-    url('./font/Urbanist-Regular.ttf') format('woff2'),
-    url('./font/Urbanist-Regular.ttf') format('woff');
+    url('/src/font/Urbanist-Regular.ttf') format('truetype'),
+    url('/src/font/Urbanist-Regular.ttf') format('truetype');
   font-weight: 400; /* Regular */
   font-style: normal;
   font-display: swap;
@@ -21,8 +21,8 @@
 @font-face {
   font-family: 'Urbanist';
   src:
-    url('./font/Urbanist-Medium.ttf') format('woff2'),
-    url('./font/Urbanist-Medium.ttf') format('woff');
+    url('/src/font/Urbanist-Medium.ttf') format('truetype'),
+    url('/src/font/Urbanist-Medium.ttf') format('truetype');
   font-weight: 500; /* Medium */
   font-style: normal;
   font-display: swap;
@@ -31,8 +31,8 @@
 @font-face {
   font-family: 'Urbanist';
   src:
-    url('./font/Urbanist-SemiBold.ttf') format('woff2'),
-    url('./font/Urbanist-SemiBold.ttf') format('woff');
+    url('/src/font/Urbanist-SemiBold.ttf') format('truetype'),
+    url('/src/font/Urbanist-SemiBold.ttf') format('truetype');
   font-weight: 600; /* SemiBold */
   font-style: normal;
   font-display: swap;
@@ -41,8 +41,8 @@
 @font-face {
   font-family: 'Urbanist';
   src:
-    url('./font/Urbanist-Bold.ttf') format('woff2'),
-    url('./font/Urbanist-Bold.ttf') format('woff');
+    url('/src/font/Urbanist-Bold.ttf') format('truetype'),
+    url('/src/font/Urbanist-Bold.ttf') format('truetype');
   font-weight: 700; /* Bold */
   font-style: normal;
   font-display: swap;
@@ -51,8 +51,8 @@
 @font-face {
   font-family: 'Urbanist';
   src:
-    url('./font/Urbanist-ExtraBold.ttf') format('woff2'),
-    url('./font/Urbanist-ExtraBold.ttf') format('woff');
+    url('/src/font/Urbanist-ExtraBold.ttf') format('truetype'),
+    url('/src/font/Urbanist-ExtraBold.ttf') format('truetype');
   font-weight: 800; /* ExtraBold */
   font-style: normal;
   font-display: swap;
@@ -61,8 +61,8 @@
 @font-face {
   font-family: 'Urbanist';
   src:
-    url('./font/Urbanist-Black.ttf') format('woff2'),
-    url('./font/Urbanist-Black.ttf') format('woff');
+    url('/src/font/Urbanist-Black.ttf') format('truetype'),
+    url('/src/font/Urbanist-Black.ttf') format('truetype');
   font-weight: 900; /* Black */
   font-style: normal;
   font-display: swap;

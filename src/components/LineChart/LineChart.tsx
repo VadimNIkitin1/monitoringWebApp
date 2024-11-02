@@ -14,7 +14,6 @@ import {
 
 import { TypeLineChart } from '@/constans';
 import { userData } from '@/data';
-import { generateHourlyLabels } from '@/utils';
 
 import style from './LineChart.module.scss';
 
@@ -27,19 +26,29 @@ const dataMapping = {
   [TypeLineChart.NET]: userData.userDataNET,
 };
 
-export const LineChart = () => {
+export const LineChart = ({ metricData }: any) => {
+  const { values, total } = metricData;
   const { typelinecharts } = useParams();
 
   const howUsedData = (type: string | undefined): ChartData<'line', number[], string> => {
-    const labels = generateHourlyLabels();
-    const selectedData = type ? dataMapping[type as TypeLineChart]?.usedValue : [];
+    const data = values.map((metric: any) => metric.value);
+    const timestamp = values.map((metric: any) => metric.timestamp);
+
+    function convertTimestampsToTime(arr: any) {
+      return arr.map((timestamp: any) => {
+        const date = new Date(timestamp * 1000);
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        return `${hours}:${minutes}`;
+      });
+    }
 
     return {
-      labels,
+      labels: convertTimestampsToTime(timestamp),
       datasets: [
         {
           label: type,
-          data: selectedData,
+          data: data,
           fill: false,
           borderColor: 'rgb(75, 192, 192)',
           tension: 0.1,
@@ -55,7 +64,7 @@ export const LineChart = () => {
       scales: {
         y: {
           beginAtZero: true,
-          max,
+          max: total,
           ticks: {
             stepSize: max < 10 ? 1 : 10,
           },

@@ -23,8 +23,8 @@ export const MonitoringPage = () => {
       setError(null);
       try {
         const res = await getServerList();
-        if (res && res.length) {
-          setServerList(res);
+        if (res.result && res.result.length) {
+          setServerList(res.result);
         } else {
           setServerList([]);
         }
@@ -56,7 +56,7 @@ export const MonitoringPage = () => {
 
   return (
     <div className={style.page}>
-      <h1 className={style.header}>BigMonitoring</h1>
+      <h1 className={style.header}>MonitoRing</h1>
       <div className={style.content}>
         <div className={style.infoTable}>
           <div className={style.infoRow}>
@@ -86,10 +86,10 @@ export const MonitoringPage = () => {
             </div>
           </div>
         </div>
+        {!error && !serverList.length && !loading && (
+          <Alert status="info">Серверов нет в работе!</Alert>
+        )}
         {error && <Alert status="error">{error}</Alert>}
-        {/* {!serverList?.length && !loading && !error && (
-          <Alert status="info">Нет доступных серверов.</Alert>
-        )} */}
         {loading && (
           <div className={style.skeletonContainer}>
             <Skeleton className={style.middle} />
@@ -103,6 +103,7 @@ export const MonitoringPage = () => {
           ))}
         </div>
       </div>
+      <div className={style.copyright}>© BigDigital</div>
     </div>
   );
 };

@@ -25,3 +25,16 @@ export async function getServerMetrics(id: string | undefined) {
     console.error('Error fetching data from Backend:', error);
   }
 }
+
+export async function getServerOneMetric(
+  id: string | undefined,
+  type: string | undefined,
+  interval: string | undefined
+) {
+  try {
+    const res = await axios.get(`/server_metrics/${id}/${type}/${interval}`);
+    return res.data;
+  } catch (error) {
+    console.error('Error fetching data from Backend:', error);
+  }
+}
