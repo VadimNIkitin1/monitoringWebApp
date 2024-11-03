@@ -10,7 +10,7 @@ export async function getServerList() {
     if (error.response) {
       throw new Error('Запрашиваемый ресурс не найден: 404');
     } else if (error.request) {
-      throw new Error('Ошибка сети: не удалось получить ответ от сервера.');
+      throw new Error('Не удалось получить ответ от сервера!');
     } else {
       throw new Error('Произошла неизвестная ошибка !');
     }
@@ -25,7 +25,7 @@ export async function getServerMetrics(id: string | undefined) {
     if (error.response) {
       throw new Error('Запрашиваемый ресурс не найден: 404');
     } else if (error.request) {
-      throw new Error('Ошибка сети: не удалось получить ответ от сервера.');
+      throw new Error('Не удалось получить ответ от сервера!');
     } else {
       throw new Error('Произошла неизвестная ошибка !');
     }
@@ -44,7 +44,7 @@ export async function getServerOneMetric(
     if (error.response) {
       throw new Error('Запрашиваемый ресурс не найден: 404');
     } else if (error.request) {
-      throw new Error('Ошибка сети: не удалось получить ответ от сервера.');
+      throw new Error('Не удалось получить ответ от сервера!');
     } else {
       throw new Error('Произошла неизвестная ошибка !');
     }

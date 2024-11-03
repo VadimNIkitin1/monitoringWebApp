@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { LineChart, Skeleton, PageComponent } from '@/components';
+import { LineChart, Skeleton, PageComponent, Alert } from '@/components';
 import { useAppNavigate, useTelegram } from '@/hooks';
 import { getServerOneMetric } from '@/api';
 
 import { IResponceLineChartPage } from './types';
-
-import { Alert } from '@/components/ui/alert';
 
 export const LineChartPage = () => {
   const { goBack } = useAppNavigate();
@@ -31,7 +29,7 @@ export const LineChartPage = () => {
     const fetchData = async () => {
       try {
         const res = await getServerOneMetric(server_id, typelinecharts, '1d');
-        if (res.result && res.result.values.length) {
+        if (res) {
           setResponce(res);
         } else {
           setResponce(null);

@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { DoughnutChart, Skeleton, PageComponent } from '@/components';
+import { DoughnutChart, Skeleton, PageComponent, Alert } from '@/components';
 import { useAppNavigate, useTelegram } from '@/hooks';
 import { getServerMetrics } from '@/api';
 import { IResponceDoughnutChartPage } from './types';
-
-import { Alert } from '@/components/ui/alert';
 
 import style from './DoughnutChartsPage.module.scss';
 
@@ -28,10 +26,15 @@ export const DoughnutChartsPage = () => {
   useEffect(() => {
     setLoading(true);
     setError(null);
+
     const fetchData = async () => {
       try {
         const res = await getServerMetrics(server_id);
-        setResponce(res);
+        if (res) {
+          setResponce(res);
+        } else {
+          setResponce(null);
+        }
       } catch (error: any) {
         setError(error.message);
       } finally {
