@@ -1,1 +1,1 @@
-export { getServerList, getServerMetrics } from './metrics';
+export { getServerList, getServerMetrics, getServerOneMetric } from './metrics';

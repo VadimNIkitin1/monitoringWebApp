@@ -1,24 +1,22 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { DoughnutChart, Skeleton } from '@/components';
+import { DoughnutChart, Skeleton, PageComponent } from '@/components';
 import { useAppNavigate, useTelegram } from '@/hooks';
-import { TypeLineChart } from '@/constans';
 import { getServerMetrics } from '@/api';
-import { IDataMetrics } from './types';
+import { IResponceDoughnutChartPage } from './types';
+
+import { Alert } from '@/components/ui/alert';
 
 import style from './DoughnutChartsPage.module.scss';
-import { Alert } from '@/components/ui/alert';
 
 export const DoughnutChartsPage = () => {
   const { server_id } = useParams();
-  const [dataMetrics, setDataMetrics] = useState<IDataMetrics | null>(null);
-  const { goBack, goToLineChart } = useAppNavigate();
+  const { goBack } = useAppNavigate();
   const { tg, username } = useTelegram();
+  const [responce, setResponce] = useState<IResponceDoughnutChartPage | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [currentTime, setCurrentTime] = useState('');
-  const [currentDate, setCurrentDate] = useState('');
 
   useEffect(() => {
     tg.BackButton.show().onClick(goBack);
@@ -33,7 +31,7 @@ export const DoughnutChartsPage = () => {
     const fetchData = async () => {
       try {
         const res = await getServerMetrics(server_id);
-        setDataMetrics(res.result);
+        setResponce(res);
       } catch (error: any) {
         setError(error.message);
       } finally {
@@ -43,83 +41,23 @@ export const DoughnutChartsPage = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const now = new Date();
-    const timeString = now.toLocaleTimeString();
-    const dateString = now.toLocaleDateString('ru-RU', {
-      day: '2-digit',
-      month: '2-digit',
-      year: '2-digit',
-    });
-    setCurrentTime(timeString);
-    setCurrentDate(dateString);
-  }, []);
-
   return (
-    <div className={style.page}>
-      <h1 className={style.header}>MonitoRing</h1>
-      <div className={style.content}>
-        <div className={style.infoTable}>
-          <div className={style.infoRow}>
-            <p>User:</p>
-            <div>
-              {loading ? (
-                <Skeleton className={style.small} />
-              ) : (
-                <p>{username ? username : 'not tg'}</p>
-              )}
-            </div>
-          </div>
-          <div className={style.infoRow}>
-            <p>Role:</p>
-            <div>{loading ? <Skeleton className={style.small} /> : <p>Client/Company</p>}</div>
-          </div>
-          <div className={style.infoRow}>
-            <p>Last Update:</p>
-            <div>
-              {loading ? (
-                <Skeleton className={style.small} />
-              ) : (
-                <p>
-                  {currentTime} / {currentDate}
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
+    <PageComponent loading={loading} username={username} time={responce?.timestamp}>
       {error && <Alert status="error">{error}</Alert>}
+      {loading && (
+        <div className={style.skeletonContainer}>
+          <Skeleton variant="circle" />
+          <Skeleton variant="circle" />
+          <Skeleton variant="circle" />
+          <Skeleton variant="circle" />
+        </div>
+      )}
       <div className={style.chartsContainer}>
-        <div onClick={() => goToLineChart(TypeLineChart.CPU)}>
-          {dataMetrics && dataMetrics.cpu ? (
-            <DoughnutChart chartsData={dataMetrics.cpu} />
-          ) : (
-            <p>Loading...</p>
-          )}
-        </div>
-        <div onClick={() => goToLineChart(TypeLineChart.RAM)}>
-          {dataMetrics && dataMetrics.ram ? (
-            <DoughnutChart chartsData={dataMetrics.ram} />
-          ) : (
-            <p>Loading...</p>
-          )}
-        </div>
-        <div onClick={() => goToLineChart(TypeLineChart.DISK)}>
-          {dataMetrics && dataMetrics.disk ? (
-            <DoughnutChart chartsData={dataMetrics.disk} />
-          ) : (
-            <p>Loading...</p>
-          )}
-        </div>
-        <div onClick={() => goToLineChart(TypeLineChart.NET)}>
-          {dataMetrics && dataMetrics.net ? (
-            <DoughnutChart chartsData={dataMetrics.net} />
-          ) : (
-            <p>Loading...</p>
-          )}
-        </div>
+        <div>{responce && <DoughnutChart {...responce.result.cpu} />}</div>
+        <div>{responce && <DoughnutChart {...responce.result.ram} />}</div>
+        <div>{responce && <DoughnutChart {...responce.result.disk} />}</div>
+        <div>{responce && <DoughnutChart {...responce.result.net} />}</div>
       </div>
-      <div className={style.copyright}>© BigDigital</div>
-    </div>
+    </PageComponent>
   );
 };

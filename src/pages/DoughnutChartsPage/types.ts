@@ -1,15 +1,21 @@
-export interface IMetrics {
-  type: string;
-  total: number;
-  values: number;
-  interval: string;
-  description: string;
+export interface IResponceDoughnutChartPage {
+  result: IResultDoughnutChartPage;
+  timestamp: number;
 }
 
-export interface IDataMetrics {
-  cpu: IMetrics;
-  ram: IMetrics;
-  disk: IMetrics;
-  net: IMetrics;
+export interface IResultDoughnutChartPage {
+  cpu: IValueDoughnutChartPage;
+  ram: IValueDoughnutChartPage;
+  disk: IValueDoughnutChartPage;
+  net: IValueDoughnutChartPage;
   owner_id: number;
+}
+
+export interface IValueDoughnutChartPage {
+  description: string;
+  interval: string;
+  owner_id: number;
+  total: number;
+  type: string;
+  values: number;
 }

@@ -1,21 +1,28 @@
 import { useEffect, useState } from 'react';
-
-import { LineChart } from '@/components';
-import { useAppNavigate, useTelegram } from '@/hooks';
-
-import style from './LineChartPage.module.scss';
 import { useParams } from 'react-router-dom';
-import { getServerOneMetric } from '@/api/metrics';
+
+import { LineChart, Skeleton, PageComponent } from '@/components';
+import { useAppNavigate, useTelegram } from '@/hooks';
+import { getServerOneMetric } from '@/api';
+
+import { IResponceLineChartPage } from './types';
+
+import { Alert } from '@/components/ui/alert';
 
 export const LineChartPage = () => {
   const { goBack } = useAppNavigate();
   const { typelinecharts, server_id } = useParams();
-  const { tg } = useTelegram();
-  const [metricData, setMetricData] = useState<any>(null);
+  const { tg, username } = useTelegram();
+  const [responce, setResponce] = useState<IResponceLineChartPage | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  console.log(error);
-  console.log(loading);
+
+  useEffect(() => {
+    tg.BackButton.show().onClick(goBack);
+    return () => {
+      tg.BackButton.offClick(goBack);
+    };
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -25,9 +32,9 @@ export const LineChartPage = () => {
       try {
         const res = await getServerOneMetric(server_id, typelinecharts, '1d');
         if (res.result && res.result.values.length) {
-          setMetricData(res.result);
+          setResponce(res);
         } else {
-          setMetricData([]);
+          setResponce(null);
         }
       } catch (error: any) {
         setError(error.message);
@@ -38,12 +45,11 @@ export const LineChartPage = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    tg.BackButton.show().onClick(goBack);
-    return () => {
-      tg.BackButton.offClick(goBack);
-    };
-  }, []);
-
-  return <div className={style.page}>{metricData && <LineChart metricData={metricData} />}</div>;
+  return (
+    <PageComponent loading={loading} username={username} time={responce?.timestamp}>
+      {error && <Alert status="error">{error}</Alert>}
+      {loading && <Skeleton variant="chart" />}
+      {responce && <LineChart {...responce.result} />}
+    </PageComponent>
+  );
 };

@@ -1,15 +1,15 @@
 export const howUseColor = (type: string) => {
   if (type === 'cpu') {
-    return ['#025500', '#80ec81'];
+    return ['#80ec81', '#025500'];
   }
   if (type === 'ram') {
-    return ['#4a1210', '#e5509c'];
+    return ['#e5509c', '#4a1210'];
   }
   if (type === 'disk') {
-    return ['#6e5f00', '#f6e163'];
+    return ['#f6e163', '#6e5f00'];
   }
   if (type === 'net') {
-    return ['#02555c', '#56eaf9'];
+    return ['#56eaf9', '#02555c'];
   }
   return ['#000', '#fff'];
 };

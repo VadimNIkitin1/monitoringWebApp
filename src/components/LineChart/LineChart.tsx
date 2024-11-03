@@ -1,5 +1,4 @@
 import { Line } from 'react-chartjs-2';
-import { useParams } from 'react-router-dom';
 import {
   Chart as ChartJS,
   ArcElement,
@@ -7,91 +6,64 @@ import {
   PointElement,
   LineElement,
   LinearScale,
-  ChartData,
-  ChartOptions,
   TimeScale,
+  ChartData,
 } from 'chart.js';
 
-import { TypeLineChart } from '@/constans';
-import { userData } from '@/data';
+import { convertTimestampsToTime, howUseColor } from '@/utils';
 
 import style from './LineChart.module.scss';
 
+import { IResultLineChartPage } from '@/pages';
+
 ChartJS.register(ArcElement, CategoryScale, PointElement, LineElement, LinearScale, TimeScale);
 
-const dataMapping = {
-  [TypeLineChart.CPU]: userData.userDataCPU,
-  [TypeLineChart.RAM]: userData.userDataRAM,
-  [TypeLineChart.DISK]: userData.userDataDISK,
-  [TypeLineChart.NET]: userData.userDataNET,
-};
-
-export const LineChart = ({ metricData }: any) => {
-  const { values, total } = metricData;
-  const { typelinecharts } = useParams();
-
-  const howUsedData = (type: string | undefined): ChartData<'line', number[], string> => {
-    const data = values.map((metric: any) => metric.value);
-    const timestamp = values.map((metric: any) => metric.timestamp);
-
-    function convertTimestampsToTime(arr: any) {
-      return arr.map((timestamp: any) => {
-        const date = new Date(timestamp * 1000);
-        const hours = String(date.getHours()).padStart(2, '0');
-        const minutes = String(date.getMinutes()).padStart(2, '0');
-        return `${hours}:${minutes}`;
-      });
-    }
-
-    return {
-      labels: convertTimestampsToTime(timestamp),
-      datasets: [
-        {
-          label: type,
-          data: data,
-          fill: false,
-          borderColor: 'rgb(75, 192, 192)',
-          tension: 0.1,
-        },
-      ],
-    };
+export const LineChart = ({ values, total, type }: IResultLineChartPage) => {
+  const data: ChartData<'line', any[], string> = {
+    labels: convertTimestampsToTime(values),
+    datasets: [
+      {
+        label: type,
+        data: values.map((metric: any) => metric.value),
+        fill: false,
+        borderColor: howUseColor(type)[0],
+        tension: 0.1,
+        pointStyle: false,
+      },
+    ],
   };
 
-  const howUseOptions = (type: string | undefined): ChartOptions<'line'> => {
-    const max = type ? dataMapping[type as TypeLineChart]?.totalValue : 100;
-
-    return {
-      scales: {
-        y: {
-          beginAtZero: true,
-          max: total,
-          ticks: {
-            stepSize: max < 10 ? 1 : 10,
-          },
-          grid: {
-            color: 'rgba(200, 200, 200, 0.3)',
-          },
-          title: {
-            display: true,
-            text: 'Value',
-          },
+  const options = {
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: total,
+        ticks: {
+          stepSize: 10,
         },
-        x: {
-          title: {
-            display: true,
-            text: 'Time',
-          },
-          grid: {
-            color: 'rgba(200, 200, 200, 0.3)',
-          },
+        grid: {
+          color: 'rgba(200, 200, 200, 0.3)',
+        },
+        title: {
+          display: true,
+          text: 'Value',
         },
       },
-    };
+      x: {
+        title: {
+          display: true,
+          text: 'Time',
+        },
+        grid: {
+          color: 'rgba(200, 200, 200, 0.3)',
+        },
+      },
+    },
   };
 
   return (
     <div className={style.container}>
-      <Line data={howUsedData(typelinecharts)} options={howUseOptions(typelinecharts)} />
+      <Line data={data} options={options} />
     </div>
   );
 };

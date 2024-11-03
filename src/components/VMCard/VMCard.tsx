@@ -1,13 +1,10 @@
 import { useAppNavigate } from '@/hooks';
 
 import clsx from 'clsx';
-import style from './VMCard.module.scss';
 
-interface IVMCardProps {
-  id: number;
-  name: string;
-  status: string;
-}
+import { IVMCardProps } from './types';
+
+import style from './VMCard.module.scss';
 
 export const VMCard = ({ name, status, id }: IVMCardProps) => {
   const { goToDoughnutCharts } = useAppNavigate();

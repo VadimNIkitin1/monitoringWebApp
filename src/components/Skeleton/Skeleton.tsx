@@ -1,9 +1,9 @@
+import clsx from 'clsx';
+
+import { SkeletonProps } from './types';
+
 import style from './Skeleton.module.scss';
 
-interface SkeletonProps {
-  className?: string;
-}
-
-export const Skeleton: React.FC<SkeletonProps> = ({ className }) => {
-  return <div className={`${style.skeleton} ${className}`}></div>;
+export const Skeleton = ({ variant }: SkeletonProps) => {
+  return <div className={clsx(style.skeleton, variant && style[variant])}></div>;
 };

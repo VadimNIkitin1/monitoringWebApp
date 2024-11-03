@@ -3,22 +3,22 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
 import { howUseColor } from '@/utils';
 
-import { IDoughnutData } from './types';
-
 import style from './DoughnutChart.module.scss';
+
+import { IValueDoughnutChartPage } from '@/pages';
+import { useAppNavigate } from '@/hooks';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const DoughnutChart = ({ chartsData }: { chartsData: IDoughnutData }) => {
-  const { total, values, type } = chartsData;
+export const DoughnutChart = ({ total, type, values }: IValueDoughnutChartPage) => {
+  const { goToLineChart } = useAppNavigate();
 
   const data = {
     datasets: [
       {
-        label: 'CPU',
         data: [values, total - values],
         backgroundColor: howUseColor(type),
-        hoverBackgroundColor: howUseColor(type),
+        hoverBacgroundColor: howUseColor(type),
         borderWidth: 0,
       },
     ],
@@ -40,10 +40,10 @@ export const DoughnutChart = ({ chartsData }: { chartsData: IDoughnutData }) => 
   };
 
   return (
-    <div className={style.container}>
+    <div className={style.container} onClick={() => goToLineChart(type)}>
       <Doughnut data={data} options={options} />
       <div className={style.centerText}>
-        {type}
+        {type.toUpperCase()}
         {'\n'}
         {((values / total) * 100).toFixed(2)}%
       </div>

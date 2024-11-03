@@ -7,7 +7,7 @@ export const useAppNavigate = () => {
     navigate(`${id}/doughnutcharts`);
   };
 
-  const goToLineChart = (type: string) => {
+  const goToLineChart = (type: string | undefined) => {
     navigate(`${type}/linecharts/`);
   };
 
