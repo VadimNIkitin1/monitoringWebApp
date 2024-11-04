@@ -1,4 +1,3 @@
-// import { useEffect } from 'react';
 import { useAppNavigate, useTelegram } from '@/hooks';
 
 export const AuthRedirect = () => {
@@ -6,12 +5,14 @@ export const AuthRedirect = () => {
   const { goToStartPage, goToAuthPage } = useAppNavigate();
 
   const checkAuth = async (id: any) => {
+    console.log('id:', id);
     if ((await id) && id == '1132630506') {
       goToStartPage(1);
     }
-    goToAuthPage();
+    if (!id) {
+      goToAuthPage();
+    }
   };
-  console.log('id:', id);
   checkAuth(id);
 
   return null;
