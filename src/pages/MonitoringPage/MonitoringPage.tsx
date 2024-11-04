@@ -1,37 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
+import { useMonitoringStore } from '@/store';
 import { useTelegram } from '@/hooks';
 import { VMCard, Skeleton, PageComponent, Alert } from '@/components';
-import { getServerList } from '@/api';
-import { IResponceForMonitoringPage, IServer } from './types';
+import { IServer } from './types';
 
 import style from './MonitoringPage.module.scss';
 
 export const MonitoringPage = () => {
   const { tg, username } = useTelegram();
-  const [responce, setResponce] = useState<IResponceForMonitoringPage | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { responce, loading, error, getServerList } = useMonitoringStore();
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const res = await getServerList();
-        if (res) {
-          setResponce(res);
-        } else {
-          setResponce(null);
-        }
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
+    getServerList();
   }, []);
 
   useEffect(() => {

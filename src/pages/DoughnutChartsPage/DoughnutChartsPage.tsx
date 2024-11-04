@@ -1,20 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { DoughnutChart, Skeleton, PageComponent, Alert } from '@/components';
 import { useAppNavigate, useTelegram } from '@/hooks';
-import { getServerMetrics } from '@/api';
-import { IResponceDoughnutChartPage } from './types';
 
 import style from './DoughnutChartsPage.module.scss';
+import { useDoughnutPageStore } from '@/store';
 
 export const DoughnutChartsPage = () => {
   const { company_id } = useParams();
   const { goBack } = useAppNavigate();
   const { tg, username } = useTelegram();
-  const [responce, setResponce] = useState<IResponceDoughnutChartPage | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { responce, loading, error, getServerMetrics } = useDoughnutPageStore();
 
   useEffect(() => {
     tg.BackButton.show().onClick(goBack);
@@ -24,24 +21,7 @@ export const DoughnutChartsPage = () => {
   }, []);
 
   useEffect(() => {
-    setLoading(true);
-    setError(null);
-
-    const fetchData = async () => {
-      try {
-        const res = await getServerMetrics(company_id);
-        if (res) {
-          setResponce(res);
-        } else {
-          setResponce(null);
-        }
-      } catch (error: any) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
+    getServerMetrics(company_id);
   }, []);
 
   return (

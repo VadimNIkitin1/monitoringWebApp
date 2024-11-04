@@ -1,19 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { useLinePageStore } from '@/store';
 import { LineChart, Skeleton, PageComponent, Alert } from '@/components';
 import { useAppNavigate, useTelegram } from '@/hooks';
-import { getServerOneMetric } from '@/api';
-
-import { IResponceLineChartPage } from './types';
 
 export const LineChartPage = () => {
   const { goBack } = useAppNavigate();
   const { company_id, typelinecharts } = useParams();
   const { tg, username } = useTelegram();
-  const [responce, setResponce] = useState<IResponceLineChartPage | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { responce, loading, error, getServerOneMetric } = useLinePageStore();
 
   useEffect(() => {
     tg.BackButton.show().onClick(goBack);
@@ -23,24 +19,7 @@ export const LineChartPage = () => {
   }, []);
 
   useEffect(() => {
-    setLoading(true);
-    setError(null);
-
-    const fetchData = async () => {
-      try {
-        const res = await getServerOneMetric(company_id, typelinecharts, '1d');
-        if (res) {
-          setResponce(res);
-        } else {
-          setResponce(null);
-        }
-      } catch (error: any) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
+    getServerOneMetric(company_id, typelinecharts, '1d');
   }, []);
 
   return (
