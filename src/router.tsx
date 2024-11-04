@@ -6,21 +6,26 @@ import {
   NotFoundPage,
   MonitoringPage,
   ErrorPage,
+  AuthPage,
 } from './pages';
+
+import { AuthRedirect } from '@/components';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route index path="/" element={<MonitoringPage />} errorElement={<ErrorPage />} />
+      <Route index path="/" element={<AuthRedirect />} errorElement={<ErrorPage />} />
+      <Route index path="/auth" element={<AuthPage />} errorElement={<ErrorPage />} />
+      <Route index path="/:company_id" element={<MonitoringPage />} errorElement={<ErrorPage />} />
       <Route
         index
-        path="/:server_id/doughnutcharts"
+        path="/:company_id/doughnutcharts"
         element={<DoughnutChartsPage />}
         errorElement={<ErrorPage />}
       />
       <Route
         index
-        path="/:server_id/doughnutcharts/:typelinecharts/linecharts"
+        path="/:company_id/doughnutcharts/:typelinecharts/linecharts"
         element={<LineChartPage />}
         errorElement={<ErrorPage />}
       />

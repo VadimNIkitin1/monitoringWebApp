@@ -3,8 +3,16 @@ import { useNavigate } from 'react-router-dom';
 export const useAppNavigate = () => {
   const navigate = useNavigate();
 
-  const goToDoughnutCharts = (id: number) => {
-    navigate(`${id}/doughnutcharts`);
+  const goToAuthPage = () => {
+    navigate('/auth');
+  };
+
+  const goToStartPage = (id: string | number) => {
+    navigate(`/${id}`);
+  };
+
+  const goToDoughnutCharts = () => {
+    navigate(`doughnutcharts`);
   };
 
   const goToLineChart = (type: string | undefined) => {
@@ -16,6 +24,8 @@ export const useAppNavigate = () => {
   };
 
   return {
+    goToAuthPage,
+    goToStartPage,
     goToDoughnutCharts,
     goToLineChart,
     goBack,

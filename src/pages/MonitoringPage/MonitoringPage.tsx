@@ -56,7 +56,7 @@ export const MonitoringPage = () => {
         {responce &&
           responce.result &&
           responce.result.map((server: IServer) => (
-            <VMCard key={server.id} id={server.id} name={server.name} status={server.status} />
+            <VMCard key={server.id} name={server.name} status={server.status} />
           ))}
       </div>
     </PageComponent>

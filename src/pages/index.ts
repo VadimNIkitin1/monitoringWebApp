@@ -3,6 +3,7 @@ export { ErrorPage } from './ErrorPage';
 export { LineChartPage } from './LineChartPage';
 export { MonitoringPage } from './MonitoringPage';
 export { NotFoundPage } from './NotFoundPage';
+export { AuthPage } from './AuthPage';
 
 export type {
   IResponceLineChartPage,

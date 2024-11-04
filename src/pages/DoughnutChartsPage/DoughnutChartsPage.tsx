@@ -9,7 +9,7 @@ import { IResponceDoughnutChartPage } from './types';
 import style from './DoughnutChartsPage.module.scss';
 
 export const DoughnutChartsPage = () => {
-  const { server_id } = useParams();
+  const { company_id } = useParams();
   const { goBack } = useAppNavigate();
   const { tg, username } = useTelegram();
   const [responce, setResponce] = useState<IResponceDoughnutChartPage | null>(null);
@@ -29,7 +29,7 @@ export const DoughnutChartsPage = () => {
 
     const fetchData = async () => {
       try {
-        const res = await getServerMetrics(server_id);
+        const res = await getServerMetrics(company_id);
         if (res) {
           setResponce(res);
         } else {
