@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
 import { useAppNavigate, useTelegram } from '@/hooks';
 
-export const AuthRedirect = ({ children }: any) => {
+export const AuthRedirect = () => {
   const { id } = useTelegram();
   console.log('id:', id);
-  //   const id = '1132630506';
   const { goToStartPage, goToAuthPage } = useAppNavigate();
 
   useEffect(() => {
@@ -18,5 +17,5 @@ export const AuthRedirect = ({ children }: any) => {
     }
   }, [id]);
 
-  return children;
+  return null;
 };
