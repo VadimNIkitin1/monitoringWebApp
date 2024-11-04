@@ -14,8 +14,7 @@ import { AuthRedirect } from '@/components';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route>
-        <Route index path="/" element={<AuthRedirect />} errorElement={<ErrorPage />} />
+      <Route path="/" element={<AuthRedirect />} errorElement={<ErrorPage />}>
         <Route path="/auth" element={<AuthPage />} errorElement={<ErrorPage />} />
         <Route path="/:company_id" element={<MonitoringPage />} errorElement={<ErrorPage />} />
         <Route

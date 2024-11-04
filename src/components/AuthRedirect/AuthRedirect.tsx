@@ -3,15 +3,12 @@ import { useAppNavigate, useTelegram } from '@/hooks';
 
 export const AuthRedirect = ({ children }: any) => {
   const { id } = useTelegram();
+  console.log('id:', id);
+  //   const id = '1132630506';
   const { goToStartPage, goToAuthPage } = useAppNavigate();
-
-  if (!id) {
-    return <div>Loading...</div>;
-  }
 
   useEffect(() => {
     if (id) {
-      console.log('USE EFFECT', id);
       if (id === '1132630506' || id === '280676256') {
         goToStartPage(1);
         return;
@@ -19,7 +16,7 @@ export const AuthRedirect = ({ children }: any) => {
         goToAuthPage();
       }
     }
-  }, [id, goToStartPage, goToAuthPage]);
+  }, [id]);
 
   return children;
 };
