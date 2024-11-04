@@ -9,6 +9,7 @@ export const AuthRedirect = () => {
     if (await id) {
       goToStartPage(1);
     }
+    goToAuthPage();
   };
   console.log('id:', id);
   checkAuth(id);
