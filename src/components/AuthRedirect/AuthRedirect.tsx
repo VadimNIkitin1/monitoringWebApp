@@ -6,7 +6,7 @@ export const AuthRedirect = () => {
   const { goToStartPage, goToAuthPage } = useAppNavigate();
 
   const checkAuth = async (id: any) => {
-    if (await id) {
+    if ((await id) && id == '1132630506') {
       goToStartPage(1);
     }
     goToAuthPage();
