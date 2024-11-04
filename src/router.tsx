@@ -23,7 +23,7 @@ const router = createBrowserRouter(
         errorElement={<ErrorPage />}
       />
       <Route
-        path="/:company_id/doughnutcharts/:typelinecharts/linecharts"
+        path="/:company_id/doughnutcharts/:typelinecharts"
         element={<LineChartPage />}
         errorElement={<ErrorPage />}
       />

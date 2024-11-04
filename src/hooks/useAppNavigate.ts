@@ -16,7 +16,7 @@ export const useAppNavigate = () => {
   };
 
   const goToLineChart = (type: string | undefined) => {
-    navigate(`${type}/linecharts/`);
+    navigate(`${type}/`);
   };
 
   const goBack = () => {
