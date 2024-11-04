@@ -9,7 +9,7 @@ import { IResponceLineChartPage } from './types';
 
 export const LineChartPage = () => {
   const { goBack } = useAppNavigate();
-  const { typelinecharts, server_id } = useParams();
+  const { company_id, typelinecharts } = useParams();
   const { tg, username } = useTelegram();
   const [responce, setResponce] = useState<IResponceLineChartPage | null>(null);
   const [loading, setLoading] = useState(true);
@@ -28,7 +28,7 @@ export const LineChartPage = () => {
 
     const fetchData = async () => {
       try {
-        const res = await getServerOneMetric(server_id, typelinecharts, '1d');
+        const res = await getServerOneMetric(company_id, typelinecharts, '1d');
         if (res) {
           setResponce(res);
         } else {
