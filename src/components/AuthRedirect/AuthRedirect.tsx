@@ -15,5 +15,5 @@ export const AuthRedirect = () => {
   };
   checkAuth(id);
 
-  return null;
+  return <div>Loading...</div>;
 };
