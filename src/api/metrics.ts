@@ -37,7 +37,6 @@ export async function getServerOneMetric(
   type: string | undefined,
   interval: string | undefined
 ) {
-  console.log(id, type, interval);
   try {
     const res = await axios.get(`/server_metrics/${id}/${type}/${interval}`);
     return res.data;
