@@ -7,7 +7,7 @@ import { useAppNavigate, useTelegram } from '@/hooks';
 
 export const LineChartPage = () => {
   const { goBack } = useAppNavigate();
-  const { company_id, typelinecharts } = useParams();
+  const { id, typelinecharts } = useParams();
   const { tg, username } = useTelegram();
   const { responce, loading, error, getServerOneMetric } = useLinePageStore();
 
@@ -19,7 +19,7 @@ export const LineChartPage = () => {
   }, []);
 
   useEffect(() => {
-    getServerOneMetric(company_id, typelinecharts, '1d');
+    getServerOneMetric(id, typelinecharts, '1d');
   }, []);
 
   return (
