@@ -19,7 +19,7 @@ export const AuthPage = () => {
 
   const onSubmit: SubmitHandler<IRequestData> = (data: IRequestData) => {
     console.log('Submitted data:', data);
-    goToStartPage(1);
+    goToStartPage();
   };
 
   return (
