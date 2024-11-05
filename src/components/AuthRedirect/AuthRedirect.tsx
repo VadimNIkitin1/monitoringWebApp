@@ -9,7 +9,7 @@ export const AuthRedirect = () => {
     if ((await id) && id == '1132630506' && id == '280676256') {
       goToStartPage(1);
     }
-    if (id != '1132630506') {
+    if (id != '1132630506' && id != '280676256') {
       goToAuthPage();
     }
   };
