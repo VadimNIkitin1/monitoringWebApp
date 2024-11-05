@@ -6,10 +6,10 @@ export const AuthRedirect = () => {
 
   const checkAuth = async (id: any) => {
     console.log('id:', id);
-    if ((await id) && id == '1132630506') {
+    if ((await id) && id == '280676256') {
       goToStartPage(1);
     }
-    if (id != '1132630506') {
+    if (id != '280676256') {
       goToAuthPage();
     }
   };
@@ -17,3 +17,4 @@ export const AuthRedirect = () => {
 
   return null;
 };
+//1132630506
