@@ -6,7 +6,7 @@ export const AuthRedirect = () => {
 
   const checkAuth = async (id: any) => {
     console.log('id:', id);
-    if ((await id) && id == '1132630506' && '280676256') {
+    if ((await id) && id == '1132630506' && id == '280676256') {
       goToStartPage(1);
     }
     if (id != '1132630506') {
