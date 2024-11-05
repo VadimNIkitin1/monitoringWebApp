@@ -7,12 +7,12 @@ export const useAppNavigate = () => {
     navigate('/auth');
   };
 
-  const goToStartPage = (id: string | number) => {
-    navigate(`/${id}`);
+  const goToStartPage = () => {
+    navigate(`/monitoring`);
   };
 
-  const goToDoughnutCharts = () => {
-    navigate(`doughnutcharts`);
+  const goToDoughnutCharts = (id: number) => {
+    navigate(`${id}/doughnutcharts`);
   };
 
   const goToLineChart = (type: string | undefined) => {

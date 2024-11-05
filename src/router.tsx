@@ -16,9 +16,9 @@ const router = createBrowserRouter(
     <>
       <Route path="/" element={<AuthRedirect />} errorElement={<ErrorPage />} />
       <Route path="/auth" element={<AuthPage />} errorElement={<ErrorPage />} />
-      <Route path="/:company_id" element={<MonitoringPage />} errorElement={<ErrorPage />} />
+      <Route path="/monitoring" element={<MonitoringPage />} errorElement={<ErrorPage />} />
       <Route
-        path="/:company_id/doughnutcharts"
+        path="/monitoring/:id/doughnutcharts"
         element={<DoughnutChartsPage />}
         errorElement={<ErrorPage />}
       />

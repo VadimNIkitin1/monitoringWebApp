@@ -18,7 +18,7 @@ export async function getServerList() {
   }
 }
 
-export async function getServerMetrics(id: string | undefined) {
+export async function getServerMetrics(id: string | undefined | null) {
   try {
     const res = await axios.get(`/server_metrics/${id}`);
     return res.data;

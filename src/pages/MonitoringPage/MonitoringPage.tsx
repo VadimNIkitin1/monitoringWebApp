@@ -10,6 +10,7 @@ import style from './MonitoringPage.module.scss';
 export const MonitoringPage = () => {
   const { tg, username } = useTelegram();
   const { responce, loading, error, getServerList } = useMonitoringStore();
+  console.log(responce);
 
   useEffect(() => {
     getServerList();
@@ -37,7 +38,7 @@ export const MonitoringPage = () => {
         {responce &&
           responce.result &&
           responce.result.map((server: IServer) => (
-            <VMCard key={server.id} name={server.name} status={server.status} />
+            <VMCard key={server.id} name={server.name} status={server.status} id={server.id} />
           ))}
       </div>
     </PageComponent>

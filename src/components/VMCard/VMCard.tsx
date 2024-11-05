@@ -6,7 +6,7 @@ import { IVMCardProps } from './types';
 
 import style from './VMCard.module.scss';
 
-export const VMCard = ({ name, status }: IVMCardProps) => {
+export const VMCard = ({ name, status, id }: IVMCardProps) => {
   const { goToDoughnutCharts } = useAppNavigate();
 
   return (
@@ -17,7 +17,7 @@ export const VMCard = ({ name, status }: IVMCardProps) => {
         status === 'ERROR' && style.error,
         status === 'WARN' && style.warn
       )}
-      onClick={() => goToDoughnutCharts()}
+      onClick={() => goToDoughnutCharts(id)}
     >
       <p className={style.name}>{name}</p>
       <p className={style.status}>{status}</p>

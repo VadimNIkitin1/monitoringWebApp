@@ -8,10 +8,10 @@ import style from './DoughnutChartsPage.module.scss';
 import { useDoughnutPageStore } from '@/store';
 
 export const DoughnutChartsPage = () => {
-  const { company_id } = useParams();
   const { goBack } = useAppNavigate();
   const { tg, username } = useTelegram();
   const { responce, loading, error, getServerMetrics } = useDoughnutPageStore();
+  const { id } = useParams();
 
   useEffect(() => {
     tg.BackButton.show().onClick(goBack);
@@ -21,7 +21,7 @@ export const DoughnutChartsPage = () => {
   }, []);
 
   useEffect(() => {
-    getServerMetrics(company_id);
+    getServerMetrics(id);
   }, []);
 
   return (
