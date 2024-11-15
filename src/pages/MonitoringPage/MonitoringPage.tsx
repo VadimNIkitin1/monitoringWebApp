@@ -8,7 +8,7 @@ import { IServer } from './types';
 import style from './MonitoringPage.module.scss';
 
 export const MonitoringPage = () => {
-  const { tg, username } = useTelegram();
+  const { tg, username, initDataHash } = useTelegram();
   const { responce, loading, error, getServerList } = useMonitoringStore();
   console.log(responce);
 
@@ -20,6 +20,8 @@ export const MonitoringPage = () => {
     tg.expand();
     tg.BackButton.hide();
   }, []);
+
+  console.log(initDataHash);
 
   return (
     <PageComponent loading={loading} username={username} time={responce?.timestamp}>
